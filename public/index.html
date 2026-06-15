@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="bg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tablanet</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <main id="app" class="app">
+      <header id="joinBar" class="join-bar">
+        <div class="brand">
+          <h1>Табланет</h1>
+          <p id="statusText">Създай стая или влез с код.</p>
+        </div>
+        <div id="joinPanel" class="join-panel lobby-panel">
+          <button id="createRoomButton" type="button">Create Game</button>
+          <div class="room-join-row">
+            <input id="roomCodeInput" type="text" inputmode="numeric" maxlength="4" placeholder="Room code" />
+            <button id="joinRoomButton" type="button">Join Game</button>
+          </div>
+          <div id="roomCodeDisplay" class="room-code-display" hidden>
+            <span>Room</span>
+            <strong id="currentRoomCode">----</strong>
+            <button id="copyRoomCodeButton" type="button">Copy Room Code</button>
+          </div>
+        </div>
+        <button id="showQrButton" class="qr-toggle" type="button">QR за телефон</button>
+        <div id="qrPanel" class="qr-panel" hidden>
+          <img id="qrImage" alt="QR code за свързване" />
+          <p id="qrUrl">Зареждане...</p>
+        </div>
+      </header>
+
+      <section class="opponent-area" aria-label="Противник">
+        <div class="player-badge">
+          <span class="eyebrow">Противник</span>
+          <strong id="opponentName">Player -</strong>
+        </div>
+        <div id="opponentHand" class="opponent-hand" aria-label="Карти на противника"></div>
+        <div class="stats">
+          <span>Точки <b id="opponentScore">0</b></span>
+          <span>Взети <b id="opponentCaptured">0</b></span>
+          <span>Табли <b id="opponentTabli">0</b></span>
+        </div>
+      </section>
+
+      <div class="game-layout">
+        <aside class="history-panel">
+          <details id="historyDetails" open>
+            <summary>Последен ход</summary>
+            <ol id="historyList"></ol>
+          </details>
+        </aside>
+
+        <section class="table-zone" aria-label="Маса">
+          <div class="felt-ring">
+            <div class="table-topline">
+              <div class="deck-info">Тесте <b id="deckCount">0</b></div>
+            </div>
+
+            <div id="lastActionPanel" class="last-action-panel" aria-live="polite">
+              <span id="lastActionTitle">Последен ход</span>
+              <strong id="message" class="message">Изчаква се игра.</strong>
+              <small id="actionMessage" class="action-message"></small>
+            </div>
+
+            <div id="actionPreview" class="action-preview" aria-hidden="true"></div>
+            <div id="tableCards" class="cards table-cards"></div>
+
+            <div id="endScreen" class="end-screen" hidden>
+              <div class="end-card">
+                <span>Край на играта</span>
+                <strong id="winnerTitle">Победител</strong>
+                <p id="finalScore">Player 1: 0 · Player 2: 0</p>
+                <button id="playAgainButton" type="button">Play again</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section class="player-dock" aria-label="Твоите карти">
+        <div class="player-row">
+          <div class="player-badge">
+            <span class="eyebrow">Ти</span>
+            <strong id="playerName">Не си в игра</strong>
+            <span id="turnText" class="turn-pill">Не си в игра.</span>
+          </div>
+          <div id="handCards" class="cards hand-cards"></div>
+          <div class="stats">
+            <span>Точки <b id="playerScore">0</b></span>
+            <span>Взети <b id="playerCaptured">0</b></span>
+            <span>Табли <b id="playerTabli">0</b></span>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="takeButton" type="button">Вземи карти</button>
+          <button id="throwButton" type="button" class="secondary">Хвърли карта</button>
+        </div>
+      </section>
+    </main>
+    <button id="scaleButton" class="scale-button" type="button" hidden>Scale 100%</button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/client.js"></script>
+  </body>
+</html>
